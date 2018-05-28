@@ -260,7 +260,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <aside>
     <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
-        <?php  include_once("include/menu.php"); ?>
+        <?php   include_once("../Views/menu.php"); ?>
         <!-- sidebar menu end-->
     </div>
 </aside>
@@ -743,13 +743,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		});
 		
-		function cargarPagina(pagina,destino){
+		function cargarPagina(pagina,destino,parms){
 			var url = pagina;
-			var parametros = {};
+			var parametros = {applicacion: parms};
         $.ajax({
                 data:  parametros,
                 url:   pagina,
                 type:  'post',
+                async: true,
                 beforeSend: function () {
                         $("#"+destino).html("Procesando, espere por favor...");
                 },
