@@ -3,8 +3,12 @@
 
 if(isset($_POST['module']))
 {
-    $aplicacion = $_POST['aplicacion'];
+    $aplicacion = $_POST['applicacion'];
    
+}
+if(isset($_POST['INSERT']))
+{
+    
 }
 
 ?>
@@ -20,7 +24,7 @@ if(isset($_POST['module']))
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
     body {
@@ -150,10 +154,10 @@ $(document).ready(function(){
         <div class="table-wrapper">			
             <div class="table-title">
                 <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
                                 <h2>Customer <b>Details</b></h2>
                         </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-2">
                         <div class="search-box">
                             <div class="input-group">								
                                 <input type="text" id="search" class="form-control" placeholder="Search by Name">
@@ -161,11 +165,66 @@ $(document).ready(function(){
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalInsert">
+                            Agregar
+                        </button>
+                    </div>
                 </div>
             </div>
             <?php include_once('../Sistemas/Views/'.$_POST['applicacion'].'/Table.php');?>
             
         </div>
-    </div>     
+    </div>
+    
+    
+    
+    <div class="modal fade" id="ModalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Insert modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form name="formInsert" action="../Views/index.php" method="POST">
+                    <div class="form-group">
+                        <div class="row">
+                             <div class="col-md-6 col-sm-12 form-group">
+                                <label>Nombre del menu</label>
+                                <input type="text" name="menu_item" id="menu_item" class="form-control">
+                             </div>
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <label>Menu Padre</label>
+                                <select name="menu_padre" id="menu_padre" class="form-control">
+                                    <option value="0">(SELECCIONE)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <label>Link del menu</label>
+                                <input type="text" name="menu_link" id="menu_link" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <label>Aplicacion</label>
+                                <input type="text" name="menu_aplicacion" id="menu_aplicacion" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                       <button type="submit" class="btn btn-primary">Agregar</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    
 </body>
 </html>                                		                                                        
