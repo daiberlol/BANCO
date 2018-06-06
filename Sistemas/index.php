@@ -1,230 +1,776 @@
-<?php
-
-
-if(isset($_POST['module']))
-{
-    $aplicacion = $_POST['applicacion'];
-   
-}
-if(isset($_POST['INSERT']))
-{
-    
-}
-
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+if(!isset($_SESSION['login'])){
+ header("location: ../../index.php");
+ define('__ROOT__', dirname(dirname(__FILE__)));
+}
+?>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Table with Search Column Feature</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style type="text/css">
-    body {
-        color: #566787;
-        background: #f7f5f2;
-		font-family: 'Roboto', sans-serif;
-	}
-	.table-wrapper {
-        background: #fff;
-        padding: 20px 25px;
-        margin: 30px auto;
-		border-radius: 3px;
-        box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    }
-    .table-title {
-		color: #fff;
-		background: #40b2cd;		
-		padding: 16px 25px;
-		margin: -20px -25px 10px;
-		border-radius: 3px 3px 0 0;
-    }
-    .table-title h2 {
-        margin: 5px 0 0;
-        font-size: 24px;
-    }
-	.search-box {
-        position: relative;
-        float: right;
-    }
-	.search-box .input-group {
-		min-width: 300px;
-		position: absolute;
-		right: 0;
-	}
-	.search-box .input-group-addon, .search-box input {
-		border-color: #ddd;
-		border-radius: 0;
-	}	
-    .search-box input {
-        height: 34px;
-        padding-right: 35px;
-        background: #f4fcfd;
-        border: none;
-        border-radius: 2px !important;
-    }
-	.search-box input:focus {
-        background: #fff;
-	}
-	.search-box input::placeholder {
-        font-style: italic;
-    }
-	.search-box .input-group-addon {
-        min-width: 35px;
-        border: none;
-        background: transparent;
-        position: absolute;
-        right: 0;
-        z-index: 9;
-        padding: 6px 0;
-    }
-    .search-box i {
-        color: #a0a5b1;
-        font-size: 19px;
-        position: relative;
-        top: 2px;
-    }
-    table.table {
-        table-layout: fixed;
-        margin-top: 15px;
-    }
-    table.table tr th, table.table tr td {
-        border-color: #e9e9e9;
-    }
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    table.table th:first-child {
-        width: 60px;
-    }
-    table.table th:last-child {
-        width: 120px;
-    }
-    table.table td a {
-        color: #a0a5b1;
-        display: inline-block;
-        margin: 0 5px;
-    }
-	table.table td a.view {
-        color: #03A9F4;
-    }
-    table.table td a.edit {
-        color: #FFC107;
-    }
-    table.table td a.delete {
-        color: #E34724;
-    }
-    table.table td i {
-        font-size: 19px;
-    }    
-</style>
-<script type="text/javascript">
-$(document).ready(function(){
-	// Activate tooltips
-	
-    
-	// Filter table rows based on searched term
-    $("#search").on("keyup", function() {
-        var term = $(this).val().toLowerCase();
-        $("table tbody tr").each(function(){
-            $row = $(this);
-            var name = $row.find("td:nth-child(2)").text().toLowerCase();
-            console.log(name);
-            if(name.search(term) < 0){                
-                $row.hide();
-            } else{
-                $row.show();
-            }
-        });
-    });
-});
-</script>
+    <?php require_once('/Views/header.php');?>
 </head>
+
 <body>
-    <div class="container">
-        <div class="table-wrapper">			
-            <div class="table-title">
-                <div class="row">
-                        <div class="col-sm-8">
-                                <h2>Customer <b>Details</b></h2>
-                        </div>
-                    <div class="col-sm-2">
-                        <div class="search-box">
-                            <div class="input-group">								
-                                <input type="text" id="search" class="form-control" placeholder="Search by Name">
-                                <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+<section id="container">
+<!--header start-->
+<header class="header fixed-top clearfix">
+<!--logo start-->
+<div class="brand">
+    <a href="index.php" class="logo">
+        VISITORS 
+    </a>
+    <div class="sidebar-toggle-box">
+        <div class="fa fa-bars"></div>
+    </div>
+</div>
+<!--logo end-->
+<div class="nav notify-row" id="top_menu">
+    <!--  notification start -->
+    <ul class="nav top-menu">
+        <!-- settings start -->
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="fa fa-tasks"></i>
+                <span class="badge bg-success">8</span>
+            </a>
+            <ul class="dropdown-menu extended tasks-bar">
+                <li>
+                    <p class="">You have 8 pending tasks</p>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="task-info clearfix">
+                            <div class="desc pull-left">
+                                <h5>Target Sell</h5>
+                                <p>25% , Deadline  12 June’13</p>
                             </div>
+                                    <span class="notification-pie-chart pull-right" data-percent="45">
+                            <span class="percent"></span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="task-info clearfix">
+                            <div class="desc pull-left">
+                                <h5>Product Delivery</h5>
+                                <p>45% , Deadline  12 June’13</p>
+                            </div>
+                                    <span class="notification-pie-chart pull-right" data-percent="78">
+                            <span class="percent"></span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="task-info clearfix">
+                            <div class="desc pull-left">
+                                <h5>Payment collection</h5>
+                                <p>87% , Deadline  12 June’13</p>
+                            </div>
+                                    <span class="notification-pie-chart pull-right" data-percent="60">
+                            <span class="percent"></span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="task-info clearfix">
+                            <div class="desc pull-left">
+                                <h5>Target Sell</h5>
+                                <p>33% , Deadline  12 June’13</p>
+                            </div>
+                                    <span class="notification-pie-chart pull-right" data-percent="90">
+                            <span class="percent"></span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="external">
+                    <a href="#">See All Tasks</a>
+                </li>
+            </ul>
+        </li>
+        <!-- settings end -->
+        <!-- inbox dropdown start-->
+        <li id="header_inbox_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <i class="fa fa-envelope-o"></i>
+                <span class="badge bg-important">4</span>
+            </a>
+            <ul class="dropdown-menu extended inbox">
+                <li>
+                    <p class="red">You have 4 Mails</p>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="photo"><img alt="avatar" src="/../Sistemas/images/3.png"></span>
+                                <span class="subject">
+                                <span class="from">Jonathan Smith</span>
+                                <span class="time">Just now</span>
+                                </span>
+                                <span class="message">
+                                    Hello, this is an example msg.
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="photo"><img alt="avatar" src="/../Sistemas/images/1.png"></span>
+                                <span class="subject">
+                                <span class="from">Jane Doe</span>
+                                <span class="time">2 min ago</span>
+                                </span>
+                                <span class="message">
+                                    Nice admin template
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="photo"><img alt="avatar" src="/../Sistemas/images/3.png"></span>
+                                <span class="subject">
+                                <span class="from">Tasi sam</span>
+                                <span class="time">2 days ago</span>
+                                </span>
+                                <span class="message">
+                                    This is an example msg.
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="photo"><img alt="avatar" src="/../Sistemas/images/2.png"></span>
+                                <span class="subject">
+                                <span class="from">Mr. Perfect</span>
+                                <span class="time">2 hour ago</span>
+                                </span>
+                                <span class="message">
+                                    Hi there, its a test
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">See all messages</a>
+                </li>
+            </ul>
+        </li>
+        <!-- inbox dropdown end -->
+        <!-- notification dropdown start-->
+        <li id="header_notification_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                <i class="fa fa-bell-o"></i>
+                <span class="badge bg-warning">3</span>
+            </a>
+            <ul class="dropdown-menu extended notification">
+                <li>
+                    <p>Notifications</p>
+                </li>
+                <li>
+                    <div class="alert alert-info clearfix">
+                        <span class="alert-icon"><i class="fa fa-bolt"></i></span>
+                        <div class="noti-info">
+                            <a href="#"> Server #1 overloaded.</a>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalInsert">
-                            Agregar
-                        </button>
+                </li>
+                <li>
+                    <div class="alert alert-danger clearfix">
+                        <span class="alert-icon"><i class="fa fa-bolt"></i></span>
+                        <div class="noti-info">
+                            <a href="#"> Server #2 overloaded.</a>
+                        </div>
                     </div>
+                </li>
+                <li>
+                    <div class="alert alert-success clearfix">
+                        <span class="alert-icon"><i class="fa fa-bolt"></i></span>
+                        <div class="noti-info">
+                            <a href="#"> Server #3 overloaded.</a>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </li>
+        <!-- notification dropdown end -->
+    </ul>
+    <!--  notification end -->
+</div>
+<div class="top-nav clearfix">
+    <!--search & user info start-->
+    <ul class="nav pull-right top-menu">
+        <li>
+            <input type="text" class="form-control search" placeholder=" Search">
+        </li>
+        <!-- user login dropdown start-->
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <img alt="" src="/../Sistemas/images/2.png">
+                <span class="username"><?php echo $_SESSION['nombre'];?></span>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                <li><a href="../?salir=0"><i class="fa fa-key"></i> Log Out</a></li>
+            </ul>
+        </li>
+        <!-- user login dropdown end -->
+       
+    </ul>
+    <!--search & user info end-->
+</div>
+</header>
+<!--header end-->
+<!--sidebar start-->
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <?php require_once ("/Views/Menu.php"); ?>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper" id="wrapper">
+		<!-- //market-->
+		<div class="market-updates">
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-2">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-eye"> </i>
+					</div>
+					 <div class="col-md-8 market-update-left">
+					 <h4>Visitors</h4>
+					<h3>13,500</h3>
+					<p>Other hand, we denounce</p>
+				  </div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-1">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-users" ></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+					<h4>Users</h4>
+						<h3>1,250</h3>
+						<p>Other hand, we denounce</p>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-3">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-usd"></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+						<h4>Sales</h4>
+						<h3>1,500</h3>
+						<p>Other hand, we denounce</p>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd">
+				<div class="market-update-block clr-block-4">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+					</div>
+					<div class="col-md-8 market-update-left">
+						<h4>Orders</h4>
+						<h3>1,500</h3>
+						<p>Other hand, we denounce</p>
+					</div>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+		   <div class="clearfix"> </div>
+		</div>	
+		<!-- //market-->
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-12 w3ls-graph">
+					<!--agileinfo-grap-->
+						<div class="agileinfo-grap">
+							<div class="agileits-box">
+								<header class="agileits-box-header clearfix">
+									<h3>Visitor Statistics</h3>
+										<div class="toolbar">
+											
+											
+										</div>
+								</header>
+								<div class="agileits-box-body clearfix">
+									<div id="hero-area"></div>
+								</div>
+							</div>
+						</div>
+	<!--//agileinfo-grap-->
+
+				</div>
+			</div>
+		</div>
+		<div class="agil-info-calendar">
+		<!-- calendar -->
+		<div class="col-md-6 agile-calendar">
+			<div class="calendar-widget">
+                <div class="panel-heading ui-sortable-handle">
+					<span class="panel-icon">
+                      <i class="fa fa-calendar-o"></i>
+                    </span>
+                    <span class="panel-title"> Calendar Widget</span>
                 </div>
-            </div>
-            <?php include_once('../Sistemas/Views/'.$_POST['applicacion'].'/Table.php');?>
-            
-        </div>
-    </div>
-    
-    
-    
-    <div class="modal fade" id="ModalInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Insert modal</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form name="formInsert" action="../Views/index.php" method="POST">
-                    <div class="form-group">
-                        <div class="row">
-                             <div class="col-md-6 col-sm-12 form-group">
-                                <label>Nombre del menu</label>
-                                <input type="text" name="menu_item" id="menu_item" class="form-control">
-                             </div>
-                            <div class="col-md-6 col-sm-12 form-group">
-                                <label>Menu Padre</label>
-                                <select name="menu_padre" id="menu_padre" class="form-control">
-                                    <option value="0">(SELECCIONE)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 form-group">
-                                <label>Link del menu</label>
-                                <input type="text" name="menu_link" id="menu_link" class="form-control">
-                            </div>
-                            <div class="col-md-6 col-sm-12 form-group">
-                                <label>Aplicacion</label>
-                                <input type="text" name="menu_aplicacion" id="menu_aplicacion" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                       <button type="submit" class="btn btn-primary">Agregar</button>
-                    </div>
-                </form>
-            </div>
-          </div>
-        </div>
-    </div>
-    
+				<!-- grids -->
+					<div class="agile-calendar-grid">
+						<div class="page">
+							
+							<div class="w3l-calendar-left">
+								<div class="calendar-heading">
+									
+								</div>
+								<div class="monthly" id="mycalendar"></div>
+							</div>
+							
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<!-- //calendar -->
+		<div class="col-md-6 w3agile-notifications">
+			<div class="notifications">
+				<!--notification start-->
+				
+					<header class="panel-heading">
+						Notification 
+					</header>
+					<div class="notify-w3ls">
+						<div class="alert alert-info clearfix">
+							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
+							<div class="notification-info">
+								<ul class="clearfix notification-meta">
+									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
+									<li class="pull-right notification-time">1 min ago</li>
+								</ul>
+								<p>
+									Urgent meeting for next proposal
+								</p>
+							</div>
+						</div>
+						<div class="alert alert-danger">
+							<span class="alert-icon"><i class="fa fa-facebook"></i></span>
+							<div class="notification-info">
+								<ul class="clearfix notification-meta">
+									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> mentioned you in a post </li>
+									<li class="pull-right notification-time">7 Hours Ago</li>
+								</ul>
+								<p>
+									Very cool photo jack
+								</p>
+							</div>
+						</div>
+						<div class="alert alert-success ">
+							<span class="alert-icon"><i class="fa fa-comments-o"></i></span>
+							<div class="notification-info">
+								<ul class="clearfix notification-meta">
+									<li class="pull-left notification-sender">You have 5 message unread</li>
+									<li class="pull-right notification-time">1 min ago</li>
+								</ul>
+								<p>
+									<a href="#">Anjelina Mewlo, Jack Flip</a> and <a href="#">3 others</a>
+								</p>
+							</div>
+						</div>
+						<div class="alert alert-warning ">
+							<span class="alert-icon"><i class="fa fa-bell-o"></i></span>
+							<div class="notification-info">
+								<ul class="clearfix notification-meta">
+									<li class="pull-left notification-sender">Domain Renew Deadline 7 days ahead</li>
+									<li class="pull-right notification-time">5 Days Ago</li>
+								</ul>
+								<p>
+									Next 5 July Thursday is the last day
+								</p>
+							</div>
+						</div>
+						<div class="alert alert-info clearfix">
+							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
+							<div class="notification-info">
+								<ul class="clearfix notification-meta">
+									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
+									<li class="pull-right notification-time">1 min ago</li>
+								</ul>
+								<p>
+									Urgent meeting for next proposal
+								</p>
+							</div>
+						</div>
+						
+					</div>
+				
+				<!--notification end-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+			<!-- tasks -->
+			<div class="agile-last-grids">
+				<div class="col-md-4 agile-last-left">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+							<h3>Monthly</h3>
+						</div>
+						<div id="graph7"></div>
+						<script>
+						// This crosses a DST boundary in the UK.
+						Morris.Area({
+						  element: 'graph7',
+						  data: [
+							{x: '2013-03-30 22:00:00', y: 3, z: 3},
+							{x: '2013-03-31 00:00:00', y: 2, z: 0},
+							{x: '2013-03-31 02:00:00', y: 0, z: 2},
+							{x: '2013-03-31 04:00:00', y: 4, z: 4}
+						  ],
+						  xkey: 'x',
+						  ykeys: ['y', 'z'],
+						  labels: ['Y', 'Z']
+						});
+						</script>
+
+					</div>
+				</div>
+				<div class="col-md-4 agile-last-left agile-last-middle">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+							<h3>Daily</h3>
+						</div>
+						<div id="graph8"></div>
+						<script>
+						/* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
+						var day_data = [
+						  {"period": "2016-10-01", "licensed": 3407, "sorned": 660},
+						  {"period": "2016-09-30", "licensed": 3351, "sorned": 629},
+						  {"period": "2016-09-29", "licensed": 3269, "sorned": 618},
+						  {"period": "2016-09-20", "licensed": 3246, "sorned": 661},
+						  {"period": "2016-09-19", "licensed": 3257, "sorned": 667},
+						  {"period": "2016-09-18", "licensed": 3248, "sorned": 627},
+						  {"period": "2016-09-17", "licensed": 3171, "sorned": 660},
+						  {"period": "2016-09-16", "licensed": 3171, "sorned": 676},
+						  {"period": "2016-09-15", "licensed": 3201, "sorned": 656},
+						  {"period": "2016-09-10", "licensed": 3215, "sorned": 622}
+						];
+						Morris.Bar({
+						  element: 'graph8',
+						  data: day_data,
+						  xkey: 'period',
+						  ykeys: ['licensed', 'sorned'],
+						  labels: ['Licensed', 'SORN'],
+						  xLabelAngle: 60
+						});
+						</script>
+					</div>
+				</div>
+				<div class="col-md-4 agile-last-left agile-last-right">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+							<h3>Yearly</h3>
+						</div>
+						<div id="graph9"></div>
+						<script>
+						var day_data = [
+						  {"elapsed": "I", "value": 34},
+						  {"elapsed": "II", "value": 24},
+						  {"elapsed": "III", "value": 3},
+						  {"elapsed": "IV", "value": 12},
+						  {"elapsed": "V", "value": 13},
+						  {"elapsed": "VI", "value": 22},
+						  {"elapsed": "VII", "value": 5},
+						  {"elapsed": "VIII", "value": 26},
+						  {"elapsed": "IX", "value": 12},
+						  {"elapsed": "X", "value": 19}
+						];
+						Morris.Line({
+						  element: 'graph9',
+						  data: day_data,
+						  xkey: 'elapsed',
+						  ykeys: ['value'],
+						  labels: ['value'],
+						  parseTime: false
+						});
+						</script>
+
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		<!-- //tasks -->
+		<div class="agileits-w3layouts-stats">
+					<div class="col-md-4 stats-info widget">
+						<div class="stats-info-agileits">
+							<div class="stats-title">
+								<h4 class="title">Browser Stats</h4>
+							</div>
+							<div class="stats-body">
+								<ul class="list-unstyled">
+									<li>GoogleChrome <span class="pull-right">85%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar green" style="width:85%;"></div> 
+										</div>
+									</li>
+									<li>Firefox <span class="pull-right">35%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar yellow" style="width:35%;"></div>
+										</div>
+									</li>
+									<li>Internet Explorer <span class="pull-right">78%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar red" style="width:78%;"></div>
+										</div>
+									</li>
+									<li>Safari <span class="pull-right">50%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar blue" style="width:50%;"></div>
+										</div>
+									</li>
+									<li>Opera <span class="pull-right">80%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar light-blue" style="width:80%;"></div>
+										</div>
+									</li>
+									<li class="last">Others <span class="pull-right">60%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar orange" style="width:60%;"></div>
+										</div>
+									</li> 
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 stats-info stats-last widget-shadow">
+						<div class="stats-last-agile">
+							<table class="table stats-table ">
+								<thead>
+									<tr>
+										<th>S.NO</th>
+										<th>PRODUCT</th>
+										<th>STATUS</th>
+										<th>PROGRESS</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-success">In progress</span></td>
+										<td><h5>85% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>Aliquam</td>
+										<td><span class="label label-warning">New</span></td>
+										<td><h5>35% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-danger">Overdue</span></td>
+										<td><h5 class="down">40% <i class="fa fa-level-down"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td>Aliquam</td>
+										<td><span class="label label-info">Out of stock</span></td>
+										<td><h5>100% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">5</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-success">In progress</span></td>
+										<td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">6</th>
+										<td>Aliquam</td>
+										<td><span class="label label-warning">New</span></td>
+										<td><h5>38% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+</section>
+ <!-- footer -->
+		  <div class="footer">
+			<div class="wthree-copyright">
+			  <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+			</div>
+		  </div>
+  <!-- / footer -->
+</section>
+<!--main content end-->
+</section>
+
+<script>
+	$(document).ready(function() {
+		//BOX BUTTON SHOW AND CLOSE
+	   jQuery('.small-graph-box').hover(function() {
+		  jQuery(this).find('.box-button').fadeIn('fast');
+	   }, function() {
+		  jQuery(this).find('.box-button').fadeOut('fast');
+	   });
+	   jQuery('.small-graph-box .box-close').click(function() {
+		  jQuery(this).closest('.small-graph-box').fadeOut(200);
+		  return false;
+	   });
+	   
+	    //CHARTS
+	    function gd(year, day, month) {
+			return new Date(year, month - 1, day).getTime();
+		}
+		
+		graphArea2 = Morris.Area({
+			element: 'hero-area',
+			padding: 10,
+        behaveLikeLine: true,
+        gridEnabled: false,
+        gridLineColor: '#dddddd',
+        axes: true,
+        resize: true,
+        smooth:true,
+        pointSize: 0,
+        lineWidth: 0,
+        fillOpacity:0.85,
+			data: [
+				{period: '2015 Q1', iphone: 2668, ipad: null, itouch: 2649},
+				{period: '2015 Q2', iphone: 15780, ipad: 13799, itouch: 12051},
+				{period: '2015 Q3', iphone: 12920, ipad: 10975, itouch: 9910},
+				{period: '2015 Q4', iphone: 8770, ipad: 6600, itouch: 6695},
+				{period: '2016 Q1', iphone: 10820, ipad: 10924, itouch: 12300},
+				{period: '2016 Q2', iphone: 9680, ipad: 9010, itouch: 7891},
+				{period: '2016 Q3', iphone: 4830, ipad: 3805, itouch: 1598},
+				{period: '2016 Q4', iphone: 15083, ipad: 8977, itouch: 5185},
+				{period: '2017 Q1', iphone: 10697, ipad: 4470, itouch: 2038},
+			
+			],
+			lineColors:['#eb6f6f','#926383','#eb6f6f'],
+			xkey: 'period',
+            redraw: true,
+            ykeys: ['iphone', 'ipad', 'itouch'],
+            labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
+			pointSize: 2,
+			hideHover: 'auto',
+			resize: true
+		});
+		
+	   
+	});
+	</script>
+<!-- calendar -->
+    <script type="text/javascript">
+            $(window).load( function() {
+
+                    $('#mycalendar').monthly({
+                            mode: 'event',
+
+                    });
+
+                    $('#mycalendar2').monthly({
+                            mode: 'picker',
+                            target: '#mytarget',
+                            setWidth: '250px',
+                            startHidden: true,
+                            showTrigger: '#mytarget',
+                            stylePast: true,
+                            disablePast: true
+                    });
+
+            switch(window.location.protocol) {
+            case 'http:':
+            case 'https:':
+            // running on a server, should be good.
+            break;
+            case 'file:':
+            alert('Just a heads-up, events will not work when run locally.');
+            }
+
+            });
+
+            function cargarPagina(pagina,destino,parms){
+                    var url = pagina;
+                    var parametros = {applicacion: parms};
+    $.ajax({
+            data:  parametros,
+            url:   pagina,
+            type:  'GET',
+            async: true,
+            beforeSend: function () {
+                    $("#"+destino).html("Procesando, espere por favor...");
+            },
+            success:  function (response) {
+                    $("#"+destino).html(response);
+            },error: function(response){
+                                    //alert(response);
+                            }
+    });
+            }
+    function addUser(){
+       var parametros = {
+        "usu_nombre"  :$("#usu_nombre").val(),
+        "usu_apellido":$("#usu_apellido").val(),
+        "usu_telefono":$("#usu_telefono").val(),
+        "usu_correo"  :$("#usu_correo").val(),
+        "usu_estado"  :$("#usu_correo").val(),
+        "usu_rol"     :$("#usu_rol").val(),
+        "opcion"      : 'addUser'
+    };
+    $.ajax({
+            data:  parametros,
+            url:   "include/admin",
+            type:  'post',
+            beforeSend: function () {
+                    $("#res_user").html("Procesando, espere por favor...");
+            },
+            success:  function (response) {
+                    $("#res_user").html(response);
+            },error: function(response){
+                //alert(response);
+            }
+    });
+
+    }
+    function addRol(){
+        var parametros = {
+        "rol_nombre"  :$("#usu_rol").val(),
+        "opcion"      : 'addRol'
+        };
+         $.ajax({
+            data:  parametros,
+            url:   "include/admin",
+            type:  'post',
+            beforeSend: function () {
+                    $("#res_user").html("Procesando, espere por favor...");
+            },
+            success:  function (response) {
+                    $("#res_user").html(response);
+            },error: function(response){
+                //alert(response);
+            }
+    }); 
+
+    }
+    </script>
+    <!-- //calendar -->
 </body>
-</html>                                		                                                        
+</html>

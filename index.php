@@ -6,8 +6,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php 
 
-include_once ('./Sistemas/Controllers/UsuarioController.php');
-include_once ('./Sistemas/Models/Usuario.php');
+include_once (__DIR__.'/Sistemas/Controllers/UsuarioController.php');
+include_once (__DIR__.'/Sistemas/Models/Usuario.php');
 
 ?>
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ if(isset($_SESSION['login']) && $_GET['salir']==0){
             $_SESSION['correo'] = $name;
             $_SESSION['login']  = true;
             $_SESSION['rol'] = $usuario->getUsu_rol();
-            header('location: ./Sistemas/Views/index.php');
+            header('location: ./Sistemas/index.php');
      }else{
         echo "<script>alert('Datos de ingreso incorrectos'); </script>";
      }

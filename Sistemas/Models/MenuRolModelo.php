@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+define('__ROOT__', dirname(dirname(__FILE__)));
 
 class MenuRolModel {
     
@@ -13,8 +14,8 @@ class MenuRolModel {
     private $rol_id;
     
     function __construct($rol_id) {
-        require_once ("../../Configurations/Conectar.php");
-        require_once ("../Models/MenuRol.php");
+        require_once (__ROOT__."/../Configurations/Conectar.php");
+        require_once (__ROOT__."/Models/MenuRol.php");
         $this->db=conectar::conexion();
         $this->array = array();
         $this->rol_id = $rol_id;

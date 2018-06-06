@@ -5,14 +5,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+define('__ROOT__', dirname(dirname(__FILE__)));
 
 class MenuRolController {
 
     private $MenuRolModel;
     
     function __construct($mrol_id_rol) {
-        require_once ('../Models/MenuRol.php');
-        require_once ('../Models/MenuRolModelo.php');
+        require_once (__ROOT__.'/Models/MenuRol.php');
+        require_once (__ROOT__.'/Models/MenuRolModelo.php');
         $this->MenuRolModel = new MenuRolModel($mrol_id_rol);
     }
     

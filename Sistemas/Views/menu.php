@@ -1,6 +1,7 @@
 <?php 
- require_once("../Controllers/MenuRolController.php");
- $config = include ('../../config.php');
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__.'/Controllers/MenuRolController.php');
+$config = include (__ROOT__.'/../config.php');
 
 ?>
 <div class="leftside-navigation">
@@ -14,7 +15,7 @@
               if(count($submenu)==0){
             ?>
         <li>
-            <a class="active" href="javascript:;" onClick="cargarPagina('<?php echo "http://" . $_SERVER['HTTP_HOST'].$config['APPLICATION'].'/'.$listMenu->menu_link;?>','wrapper','<?php echo $listMenu->menu_aplicacion?>')">
+            <a class="active" href="javascript:;" onClick="cargarPagina('<?php echo "http://" . $_SERVER['HTTP_HOST'].$config['APPLICATION'].'/'.$listMenu->menu_link.'/Views';?>','wrapper','<?php echo $listMenu->menu_aplicacion?>')">
                <span><?php echo  $listMenu->menu_item; ?></span>
             </a>
         </li>
@@ -35,7 +36,7 @@
 
                                         ?>
 
-                                        <li><a href="javascript:;" onClick="cargarPagina('<?php echo "http://" . $_SERVER['HTTP_HOST'].$config['APPLICATION'].'/'.$SubMenuItem->menu_link; ?>','wrapper','<?php echo $SubMenuItem->menu_aplicacion?>')"><?php echo $SubMenuItem->menu_item;?></a></li>
+                                        <li><a href="javascript:;" onClick="cargarPagina('<?php echo "http://" . $_SERVER['HTTP_HOST'].$config['APPLICATION'].'/'.$SubMenuItem->menu_link.'Views'; ?>','wrapper','<?php echo $SubMenuItem->menu_aplicacion?>')"><?php echo $SubMenuItem->menu_item;?></a></li>
             <?php }
 ?>
             </ul>
