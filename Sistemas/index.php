@@ -710,20 +710,20 @@ if(!isset($_SESSION['login'])){
             function cargarPagina(pagina,destino,parms){
                     var url = pagina;
                     var parametros = {applicacion: parms};
-    $.ajax({
-            data:  parametros,
-            url:   pagina,
-            type:  'GET',
-            async: true,
-            beforeSend: function () {
-                    $("#"+destino).html("Procesando, espere por favor...");
-            },
-            success:  function (response) {
-                    $("#"+destino).html(response);
-            },error: function(response){
-                                    //alert(response);
-                            }
-    });
+            $.ajax({
+                    data:  parametros,
+                    url:   pagina,
+                    type:  'GET',
+                    async: true,
+                    beforeSend: function () {
+                            $("#"+destino).html("Procesando, espere por favor...");
+                    },
+                    success:  function (response) {
+                            $("#"+destino).html(response);
+                    },error: function(response){
+                                            //alert(response);
+                                    }
+                    });
             }
     function addUser(){
        var parametros = {

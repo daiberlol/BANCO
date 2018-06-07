@@ -20,7 +20,7 @@ class SolInformacion {
     function __construct($departamento_id) {
         $this->departamento_id = $departamento_id;
     }
-    
+            
     function getDepartamento_id() {
         return $this->departamento_id;
     }
